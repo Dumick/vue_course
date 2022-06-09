@@ -10,7 +10,7 @@
          </form>
          <form class="guests">
             <button type="button" class="add" @click="addGuest()">Add Guest</button>
-            <div class="guest" v-for="guest, key in guests">
+            <div class="guest" v-for="guest, key in guests" :key="key">
                <input type="text" v-model="guest.name">
                <button type="button" class="remove" @click="removeGuest(key)">X</button>
             </div>
@@ -37,7 +37,7 @@
                <td>Last Name:</td>
                <td>{{ lastName }}</td>
             </tr>
-            <tr v-for="guest, key in guests">
+            <tr v-for="guest, key in guests" :key="key">
                <td>Guest {{ key + 1 }}:</td>
                <td>{{ guest.name }}</td>
             </tr>
