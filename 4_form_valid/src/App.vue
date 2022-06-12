@@ -3,7 +3,7 @@
     <div class="sample" v-if="!isSend">
       <form>
         <v-input v-for="input, key in inputs" :key="key" :label="input.label" :regex="input.regex"
-          @validation="makeValid(key)" v-model:compValue="input.value" />
+          @validation="makeValid(key)" @updated="updateValue($event, key)" />
       </form>
       <div class="progress_bar">
         <span class="progress_bar-line" :style="'width:' + percent + '%'"></span>
@@ -38,7 +38,7 @@ export default {
   },
   computed: {
     percent() {
-      return (Object.keys(this.validInputs).length / this.inputs.length) * 100
+      return (this.validInputs.length / this.inputs.length) * 100
     },
     disabledSend() {
       return this.percent === 100
@@ -54,6 +54,9 @@ export default {
         if (input.isValid === true)
           this.validInputs.push(input.label)
       })
+    },
+    updateValue(value, key) {
+      this.inputs[key].value = value
     },
     sendData() { this.isSend = !this.isSend }
   },

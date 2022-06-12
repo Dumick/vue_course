@@ -1,7 +1,7 @@
 <template>
     <label :for="id" :class="validInput">
         {{ label }}
-        <input type="text" :id="id" :value="compValue" @change="validation" @input="updateValue">
+        <input type="text" :id="id" @change="validation" @input="updateValue">
     </label>
 </template>
 
@@ -9,37 +9,30 @@
 export default {
     name: 'vInput',
     props: {
-        compValue: {
-            type: String,
-            requared: true
-        },
-        id: {
-            type: String,
-            requared: true
-        },
-        label: {
-            type: String,
-            requared: true
-        },
-        regex: {
-            type: String,
-            requared: true
+        id: { type: String, requared: true },
+        label: { type: String, requared: true },
+        regex: { type: String, requared: true }
+    },
+    data() {
+        return{
+            value: ''
         }
     },
     computed: {
         validInput() {
             let regex = new RegExp(this.regex)
-            let value = this.compValue
-
+            
             return {
-                'successful': value.length > 0 && (regex).test(this.compValue),
-                'error': value.length > 0 && !(regex).test(this.compValue),
+                'successful': this.value.length > 0 && (regex).test(this.value),
+                'error': this.value.length > 0 && !(regex).test(this.value),
             }
         }
     },
     methods: {
         updateValue(e) {
-            this.$emit('update:compValue', e.target.value)
+            let target = e.target.value
+            this.value = target
+            this.$emit('updated', target)
         },
         validation() {
             this.$emit('validation', new RegExp(this.regex).test(this.compValue));
