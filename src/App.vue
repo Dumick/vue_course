@@ -72,7 +72,7 @@ export default {
 		}
 
 		&>a.router-link-active {
-
+			background-color: blueviolet;
 		}
 	}
 
