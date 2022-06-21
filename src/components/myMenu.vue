@@ -20,24 +20,28 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/style.scss";
 
-nav {
-   margin: 10px;
-   padding: 10px 20px;
-   border: 1px solid #000;
-   
+ul {
+   display: flex;
+   padding: 4px 0;
+   border-radius: 3px;
+   background-color: #fff;
+
    li {
-      text-align: center;
-      
+      cursor: pointer;
+
       a {
-         display: block;
-         padding: 5px;
+         padding: 4px 10px;
          color: #000;
-         transition: .2s;
          text-decoration: none;
-         border-bottom: 1px solid #000;
+         border-radius: 3px;
+         transition: .2s;
+
+         &.router-link-active {
+            background-color: #f0f0f0;
+         }
 
          &:hover {
-            font-weight: bold;
+            background-color: #f0f0f0;
          }
       }
    }

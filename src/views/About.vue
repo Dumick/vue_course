@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <div>
         <h2>About</h2>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis aliquam sit, eos dicta repudiandae id
             possimus suscipit dolores blanditiis ab sed tempore molestias soluta unde minus illum eius voluptatibus illo
@@ -113,7 +113,7 @@
             porro optio ipsum autem? Illum hic quod deserunt, doloribus error soluta laboriosam vero repudiandae, ipsa
             consectetur quo temporibus blanditiis. Minima impedit assumenda iusto eveniet voluptate natus nobis
             delectus.</p>
-    </section>
+    </div>
 </template>
 
 <script>
@@ -125,8 +125,4 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/style.scss';
 
-section {
-    padding: 0 40px;
-    border-left: 1px solid rgb(185, 185, 185);
-}
 </style>

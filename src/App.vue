@@ -1,14 +1,10 @@
 <template>
-	<header>
-		<h1>My Shop</h1>
-	</header>
+   <header>
+      <h1>My Shop</h1>
+      <my-menu :links="links" />
+   </header>
    <main>
-      <div class="menu">
-         <my-menu :links="links" />
-      </div>
-      <div class="body">
-         <router-view />
-      </div>
+      <router-view />
    </main>
 </template>
 
@@ -34,12 +30,19 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/style.scss";
+
+header {
+   display: flex;
+   align-items: center;
+   background-color: #96b1eb;
+}
+
 h1 {
-	padding: 10px;
-	background-color: rgb(106, 135, 199);
+   font-size: 24px;
+   padding: 10px;
 }
 
 main {
-	display: flex;
+   padding: 20px;
 }
 </style>

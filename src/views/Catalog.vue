@@ -1,5 +1,5 @@
 <template>
-   <div class="wrapper">
+   <div>
       <h2>Catalog</h2>
       <div class="catalog">
          <my-card
@@ -31,9 +31,6 @@ export default {
 <style scoped>
 @import "@/assets/style.scss";
 
-.wrapper {
-   margin-left: 20px;
-}
 .catalog {
    display: flex;
    flex-wrap: wrap;
