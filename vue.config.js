@@ -7,5 +7,5 @@ module.exports = defineConfig({
 	filenameHashing: false,
 	transpileDependencies: [
 		/\bvue-awesome\b/
-	  ]
+	]
 })

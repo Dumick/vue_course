@@ -1,80 +1,45 @@
 <template>
-	<div>
-		<header>
-			<h1 class="header-title">My Shop</h1>
-		</header>
-		<main>
-			<div class="container">
-				<nav class="navbar">
-					<ul class="navbar-menu">
-						<li class="navbar-menu_item">
-							<router-link :to="{ name: 'catalog' }">Catalog</router-link>
-						</li>
-						<li class="navbar-menu_item">
-							<router-link :to="{ name: 'cart' }"> Cart </router-link>
-						</li>
-						<li class="navbar-menu_item">
-							<router-link :to="{ name: 'about' }"> About </router-link>
-						</li>
-					</ul>
-				</nav>
-				<section>
-					<router-view />
-				</section>
-			</div>
-		</main>
-	</div>
+	<header>
+		<h1>My Shop</h1>
+	</header>
+   <main>
+      <div class="menu">
+         <my-menu :links="links" />
+      </div>
+      <div class="body">
+         <router-view />
+      </div>
+   </main>
 </template>
 
 <script>
+import myMenu from "@/components/myMenu.vue";
 
 export default {
-	name: 'App'
-}
+   name: "App",
+   components: {
+      myMenu,
+   },
+   data() {
+      return {
+         links: [
+            { name: "catalog", label: "Catalog" },
+            { name: "cart", label: "Cart" },
+            { name: "about", label: "About" },
+         ],
+      };
+   },
+};
 </script>
 
-<style lang="scss">
-@import '@/assets/style.scss';
-
-.header-title {
-	margin-left: 10px;
+<style lang="scss" scoped>
+@import "@/assets/style.scss";
+h1 {
+	padding: 10px;
+	background-color: rgb(106, 135, 199);
 }
 
-.navbar {
-	min-width: 150px;
-	padding: 8px 0;
-	margin: 10px;
-
-	&-menu_item {
-
-		transition: .5s;
-
-		&+& {
-			margin-top: 4px;
-		}
-
-		&:hover {
-			color: #fff;
-			background-color: rgb(197, 197, 197);
-		}
-
-		&>a {
-			transition: .2s;
-			color: #000;
-			display: block;
-			cursor: pointer;
-			padding: 2px 8px;
-			text-decoration: none;
-		}
-
-		&:hover>a {
-			color: rgb(83, 83, 83);
-		}
-
-		&>a.router-link-active {
-			background-color: blueviolet;
-		}
-	}
-
+main {
+	display: flex;
 }
 </style>

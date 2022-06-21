@@ -7,7 +7,6 @@
 
         <div class="card-body">
             <img :src="image" class="card-body_image">
-            <p class="card-body_desc">{{ description }}</p>
             <h3 class="card-body_title">{{ title }}</h3>
             <hr>
             <div>
@@ -19,7 +18,6 @@
                         <p class="new_price">{{ salePrice }}<em>$</em></p>
                     </div>
                 </div>
-                <p class="card-body_stoke">In stock {{ stock }}</p>
             </div>
         </div>
 
@@ -36,8 +34,6 @@ export default {
         brand: { type: String, requared: true },
         sale: { type: Number },
         image: { type: String, requared: true },
-        description: { type: String, requared: true },
-        stock: { type: Number, requared: true },
         price: { type: Number, requared: true }
     },
     computed: {
@@ -54,7 +50,7 @@ export default {
 .card {
     margin-top: 20px;
     padding: 20px;
-    max-width: 250px;
+    width: 250px;
     background-color: #c8c8c8;
     border-radius: 6px;
     position: relative;
@@ -83,7 +79,7 @@ export default {
 
     &-body {
         &_image {
-            width: 100%;
+            height: 100px;
             margin-top: 10px;
         }
 
