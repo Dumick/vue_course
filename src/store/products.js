@@ -19,7 +19,7 @@ export default {
             commit('setItems', products.products);
         } */
         load({ commit }) {
-            fetch('https://dummyjson.com/products?limit=10')
+            fetch('https://dummyjson.com/products?limit=9')
                 .then(res => res.json())
                 .then(json => commit('setItems', json.products))
         }

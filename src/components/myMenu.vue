@@ -1,10 +1,8 @@
 <template>
    <nav>
-      <ul>
-         <li v-for="(ln, i) in links" :key="i">
-            <router-link :to="{ name: ln.name }">{{ ln.label }}</router-link>
-         </li>
-      </ul>
+      <router-link v-for="(ln, i) in links" :key="i" :to="{ name: ln.name }">{{
+         ln.label
+      }}</router-link>
    </nav>
 </template>
 
@@ -19,31 +17,29 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/style.scss";
-
-ul {
+nav {
+   padding: 0 20px;
+   min-width: 200px;
    display: flex;
-   padding: 4px 0;
-   border-radius: 3px;
-   background-color: #fff;
-
-   li {
+   flex-direction: column;
+   a {
       cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 3px;
+      background-color: #e1e1e1;
+      transition: 0.3s;
+      color: #000;
+      text-decoration: none;
 
-      a {
-         padding: 4px 10px;
-         color: #000;
-         text-decoration: none;
-         border-radius: 3px;
-         transition: .2s;
-
-         &.router-link-active {
-            background-color: #f0f0f0;
-         }
-
-         &:hover {
-            background-color: #f0f0f0;
-         }
+      &:hover {
+         background-color: #d8d8d8;
       }
+      &.router-link-active {
+         background-color: #c3d4ec;
+      }
+   }
+   a + a {
+      margin-top: 10px;
    }
 }
 </style>

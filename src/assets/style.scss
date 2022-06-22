@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Mukta&display=swap');
+
 * {
 	margin: 0;
 	padding: 0;
@@ -7,10 +9,9 @@
 
 body {
 	padding-bottom: 20px;
-	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	font-family: 'Mukta', sans-serif;
 }
 
 .container {
 	display: flex;
-	align-items: flex-start;
 }

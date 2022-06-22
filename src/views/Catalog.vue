@@ -1,17 +1,19 @@
 <template>
-   <div>
+   <div class="catalog">
       <h2>Catalog</h2>
-      <div class="catalog">
+      <section>
          <my-card
+            class="product"
             v-for="product in productList"
             :key="product.id"
+            :id="product.id"
             :title="product.title"
             :brand="product.brand"
             :price="product.price"
             :sale="product.discountPercentage"
-            :image="product.thumbnail"
+            :description="product.description"
          />
-      </div>
+      </section>
    </div>
 </template>
 
@@ -32,9 +34,13 @@ export default {
 @import "@/assets/style.scss";
 
 .catalog {
+   padding: 0 10px;
+}
+
+section {
    display: flex;
    flex-wrap: wrap;
-   align-items: flex-start;
-   justify-content: space-evenly;
+   justify-content: space-between;
 }
+
 </style>

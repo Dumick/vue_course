@@ -1,15 +1,19 @@
 <template>
    <header>
       <h1>My Shop</h1>
-      <my-menu :links="links" />
+      <hr />
    </header>
    <main>
-      <router-view />
+      <div class="container">
+         <my-menu :links="links" />
+         <router-view />
+      </div>
    </main>
 </template>
 
 <script>
 import myMenu from "@/components/myMenu.vue";
+import { mapGetters } from "vuex";
 
 export default {
    name: "App",
@@ -25,6 +29,9 @@ export default {
          ],
       };
    },
+   computed: {
+      ...mapGetters('cart', ['getCnt'])
+   }
 };
 </script>
 
@@ -32,17 +39,10 @@ export default {
 @import "@/assets/style.scss";
 
 header {
-   display: flex;
-   align-items: center;
-   background-color: #96b1eb;
-}
+   padding: 10px 20px;
 
-h1 {
-   font-size: 24px;
-   padding: 10px;
-}
-
-main {
-   padding: 20px;
+   h1 {
+      font-size: 28px;
+   }
 }
 </style>

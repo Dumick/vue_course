@@ -1,131 +1,151 @@
 <template>
-    <div class="card">
-        <div class="card-header">
-            <p class="card-header_brand">{{ brand }}</p>
-            <span v-if="sale" class="sale">{{ Math.trunc(sale) }}%</span>
-        </div>
+   <div class="card">
+      <p class="card-brand">{{ brand }}</p>
+      <span class="card-image"></span>
+      <router-link
+         class="card-title"
+         :to="{ name: 'product', params: { id: id } }"
+         >{{ title }}</router-link
+      >
+      <p class="card-description">{{ spliceDesc }}</p>
 
-        <div class="card-body">
-            <img :src="image" class="card-body_image">
-            <h3 class="card-body_title">{{ title }}</h3>
-            <hr>
+      <div class="price">
+         <p v-if="!sale" class="card-price">Price: {{ price }} $</p>
+         <div v-else class="card-price_sale">
+            <p class="card-price">Price:</p>
             <div>
-                <p v-if="!sale" class="card-body_price">Price: {{ price }} $</p>
-                <div v-else class="card-body_price_sale">
-                    <p>Price: </p>
-                    <div>
-                        <p class="old_price">{{ price }}<em>$</em></p>
-                        <p class="new_price">{{ salePrice }}<em>$</em></p>
-                    </div>
-                </div>
+               <p class="old-price">
+                  <s>{{ price }}<em>$</em></s>
+               </p>
+               <p class="new-price">
+                  <b>{{ salePrice }}<em>$</em></b>
+               </p>
             </div>
-        </div>
-
-        <button class="add_in_cart">Add in cart</button>
-
-    </div>
+         </div>
+         <button v-if="!inCart(id)" class="card-btn card-add" @click="add(id)" >Add</button>
+         <button v-else class="card-btn card-pop" @click="remove(id)">Remove</button>
+      </div>
+   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
+
 export default {
-    name: 'product-card',
-    props: {
-        title: { type: String, requared: true },
-        brand: { type: String, requared: true },
-        sale: { type: Number },
-        image: { type: String, requared: true },
-        price: { type: Number, requared: true }
-    },
-    computed: {
-        salePrice() {
-            return (this.price * (1 - (this.sale / 100))).toFixed(2)
-        }
-    }
-}
+   name: "product-card",
+   props: {
+      sale: { type: Number },
+      id: { type: Number, requared: true },
+      title: { type: String, requared: true },
+      brand: { type: String, requared: true },
+      price: { type: Number, requared: true },
+      description: { type: String, requared: true },
+   },
+   computed: {
+      ...mapGetters('cart', ['inCart']),
+      salePrice() {
+         return (this.price * (1 - this.sale / 100)).toFixed(2);
+      },
+      spliceDesc() {
+         let strungToAray = this.description.split(" ").slice(0, 4);
+         strungToAray = strungToAray.reduce((str, current) => {
+            return str + " " + current;
+         }, "");
+         return strungToAray + "...";
+      },
+   },
+   methods: {
+      ...mapActions("cart", ["add", "remove"]),
+   }
+};
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/style.scss';
+@import "@/assets/style.scss";
 
 .card {
-    margin-top: 20px;
-    padding: 20px;
-    width: 250px;
-    background-color: #c8c8c8;
-    border-radius: 6px;
-    position: relative;
-    overflow: hidden;
+   width: 240px;
+   padding: 4px 20px;
+   border-radius: 4px;
+   margin-top: 10px;
+   border: 1px solid #000;
 
-    &-header {
-        display: flex;
-        justify-content: space-between;
+   &-title {
+      color: #000;
+      margin-top: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      text-decoration: none;
+   }
 
-        p {
-            font-size: 12px;
-            color: #333;
-        }
+   &-brand {
+      font-size: 12px;
+      color: #888;
+   }
 
-        span {
-            display: block;
-            position: absolute;
-            top: 5px;
-            right: -20px;
-            font-size: 12px;
-            padding: 4px 35px;
-            transform: rotate(35deg);
-            background-color: #7eb472;
-        }
-    }
+   &-description {
+      font-size: 14px;
+   }
 
-    &-body {
-        &_image {
-            height: 100px;
-            margin-top: 10px;
-        }
+   &-image {
+      display: block;
+      width: 100%;
+      height: 100px;
+      border-radius: 4px;
+      background-color: #eee;
+   }
 
-        &_desc {
-            font-size: 12px;
-            margin-top: 10px;
-        }
+   &-price {
+      display: flex;
+      align-items: center;
+      margin-right: 5px;
 
-        &_title {
-            margin: 5px 0;
-        }
+      &_sale > div {
+         display: flex;
+         align-items: center;
+      }
+   }
 
-        &>div {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+   .old-price {
+      margin-right: 5px;
+   }
 
-            font-size: 14px;
-            margin-top: 10px;
-        }
+   .new-price {
+      font-size: 15px;
+   }
 
-        &_price_sale {
-            display: flex;
-            align-items: center;
+   &-btn {
+      width: 60px;
+      height: 30px;
+      cursor: pointer;
+      border: unset;
+      font-size: 14px;
+      border-radius: 3px;
+   }
 
-            &>div {
-                margin-left: 10px;
+   &-add {
+      background-color: #c3e7bc;
 
-                .old_price {
-                    text-decoration: line-through;
-                }
-                p + p {
-                    margin-top: 5px;
-                } 
-            }
-        }
-    }
+      &:hover {
+         background-color: #a9e49d;
+      }
+   }
 
-    .add_in_cart {
-        width: 100%;
-        padding: 4px 0;
-        border: unset;
-        border-radius: 4px;
-        background-color: #7297b4;
-        margin-top: 10px;
-        cursor: pointer;
-    }
+   &-pop {
+      background-color: #e7c8bc;
+      &:hover {
+         background-color: #e9b19c;
+      }
+   }
+
+   div {
+      display: flex;
+   }
+
+   .price {
+      font-size: 14px;
+      align-items: center;
+      justify-content: space-between;
+   }
 }
 </style>
