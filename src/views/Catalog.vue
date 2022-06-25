@@ -10,7 +10,8 @@
             :title="product.title"
             :brand="product.brand"
             :price="product.price"
-            :sale="product.discountPercentage"
+            :salePrice="product.sale"
+            :salePercent="product.discountPercentage"
             :description="product.description"
          />
       </section>
@@ -25,7 +26,7 @@ export default {
    name: "HomeView",
    components: { myCard },
    computed: {
-      ...mapGetters("products", { productList: "all" }),
+      ...mapGetters("products", { productList: "allWtithSale" }),
    },
 };
 </script>

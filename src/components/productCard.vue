@@ -5,12 +5,12 @@
       <router-link
          class="card-title"
          :to="{ name: 'product', params: { id: id } }"
-         >{{ title }}</router-link
-      >
+         >{{ title }}
+      </router-link>
       <p class="card-description">{{ spliceDesc }}</p>
 
       <div class="price">
-         <p v-if="!sale" class="card-price">Price: {{ price }} $</p>
+         <p v-if="!salePercent" class="card-price">Price: {{ price }} $</p>
          <div v-else class="card-price_sale">
             <p class="card-price">Price:</p>
             <div>
@@ -22,8 +22,12 @@
                </p>
             </div>
          </div>
-         <button v-if="!inCart(id)" class="card-btn card-add" @click="add(id)" >Add</button>
-         <button v-else class="card-btn card-pop" @click="remove(id)">Remove</button>
+         <button v-if="!inCart(id)" class="card-btn card-add" @click="add(id)">
+            Add
+         </button>
+         <button v-else class="card-btn card-pop" @click="remove(id)">
+            Remove
+         </button>
       </div>
    </div>
 </template>
@@ -34,7 +38,8 @@ import { mapActions, mapGetters } from "vuex";
 export default {
    name: "product-card",
    props: {
-      sale: { type: Number },
+      salePrice: { type: Number },
+      salePercent: { type: Number },
       id: { type: Number, requared: true },
       title: { type: String, requared: true },
       brand: { type: String, requared: true },
@@ -42,10 +47,7 @@ export default {
       description: { type: String, requared: true },
    },
    computed: {
-      ...mapGetters('cart', ['inCart']),
-      salePrice() {
-         return (this.price * (1 - this.sale / 100)).toFixed(2);
-      },
+      ...mapGetters("cart", ["inCart"]),
       spliceDesc() {
          let strungToAray = this.description.split(" ").slice(0, 4);
          strungToAray = strungToAray.reduce((str, current) => {
@@ -56,7 +58,7 @@ export default {
    },
    methods: {
       ...mapActions("cart", ["add", "remove"]),
-   }
+   },
 };
 </script>
 
@@ -69,6 +71,7 @@ export default {
    border-radius: 4px;
    margin-top: 10px;
    border: 1px solid #000;
+   overflow: hidden;
 
    &-title {
       color: #000;

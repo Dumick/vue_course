@@ -5,7 +5,13 @@ export default {
     },
     getters: {
         all: state => state.items,
-        one: state => id => state.items.find(item => item.id === id),
+        one: (state, getters) => id => getters.allWtithSale.find(item => item.id === id),
+        allWtithSale: state => {
+            return state.items.map(product => {
+                let salePrice = +(product.price * (1 - product.discountPercentage / 100)).toFixed(2)
+                return {...product, sale: salePrice}
+            })
+        }
     },
     mutations: {
         setItems(state, products) {
